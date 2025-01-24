@@ -49,11 +49,7 @@ bioc_install_if_missing("methylationArrayAnalysis")
 install_if_missing("data.table")
 bioc_install_if_missing("limma")
 bioc_install_if_missing("ComplexHeatmap")
-tryCatch({
-  devtools::install_github("CutillasLab/protools2@*release")
-}, error = function(e) {
-  message("Failed to install protools2: ", e$message)
-})
+devtools::install_github("CutillasLab/protools2@*release")
 
 # ChIP-Seq packages
 bioc_install_if_missing("ChIPseeker")
@@ -61,31 +57,26 @@ bioc_install_if_missing("TxDb.Hsapiens.UCSC.hg19.knownGene")
 bioc_install_if_missing("clusterProfiler")
 
 # Tumor Evolution packages
-tryCatch({
-  devtools::install_github("caravagnalab/mobster")
-}, error = function(e) {
-  message("Failed to install mobster: ", e$message)
-})
+system("wget https://cran.r-project.org/src/contrib/Archive/NORMT3/NORMT3_1.0.4.tar.gz")
+install_if_missing()("NORMT3_1.0.4.tar.gz", repos = NULL, type = "source")
 
-if (Sys.which("wget") == "") {
-  download.file(
-    url = "https://cran.r-project.org/src/contrib/Archive/NORMT3/NORMT3_1.0.4.tar.gz",
-    destfile = "NORMT3_1.0.4.tar.gz"
-  )
-} else {
-  system("wget https://cran.r-project.org/src/contrib/Archive/NORMT3/NORMT3_1.0.4.tar.gz")
-}
-install.packages("NORMT3_1.0.4.tar.gz", repos = NULL, type = "source")
-
-tryCatch({
-  devtools::install_github("genome/bmm")
-  devtools::install_github("genome/sciClone")
-}, error = function(e) {
-  message("Failed to install tumor evolution packages: ", e$message)
-})
+devtools::install_github("genome/bmm")
+devtools::install_github("genome/sciClone")
 
 # Cancer Genomics using Single-cell DNA-seq
 install_if_missing("gplots")
 install_if_missing("Rcpp")
 bioc_install_if_missing("BSgenome.Hsapiens.UCSC.hg38")
 bioc_install_if_missing("AneuFinder")
+
+# Tumour microenvironment
+devtools::install_github("dviraran/xCell")
+devtools::install_github("GfellerLab/EPIC", build_vignettes=TRUE)
+install_if_missing("curl")
+devtools::install_github("ebecht/MCPcounter", ref="master", subdir="Source")
+devtools::install_github("BioInforCore-BCI/Decosus")
+install_if_missing("remotes")
+remotes::install_github("omnideconv/immunedeconv")
+bioc_install_if_missing("GVSA")
+bioc_install_if_missing("GSEABase")
+bioc_install_if_missing("limma")
